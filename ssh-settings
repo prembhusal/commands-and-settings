@@ -15,3 +15,13 @@ eg: SSH prem@130.108.20.113
   c.Copy from remote host to local system
   scp -r  hostname@Ip:./path_to_remote path_to_local_system
   scp -r  prem@130.108.20.113:./Documents/ ./
+  
+  
+ 3.Port forwarding:
+  a.Forward the port of remote machine to local machine
+  
+  ssh -L port_No:nodeName:port_No hostName@MachineIp
+  
+  ssh -L 4040:node01:4040 prem@130.108.20.113
+  
+  
