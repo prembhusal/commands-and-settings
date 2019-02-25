@@ -1,2 +1,19 @@
 1.configuring spark in standalone mode with singularity;
 
+Spark commands
+To run masters or slave:
+go to spark/sbin folder and run
+1. ./start-master.sh
+spark master node will be started which publish ip:port
+
+2. ./start-slave.sh spark://hostname:port ( eg ./start-slave.sh spark://lhp-1:7078)
+
+3.starting workers with specified core and executors 
+SPARK_WORKER_INSTANCES=2 SPARK_WORKER_CORES=2 ./start-slaves.sh spark://node01.cluster:7077
+
+
+At master :  spark://node01.cluster:7077
+
+for submitting job:
+go to spark/bin folder
+./spark-submit --class "SparkPi" --master spark://lhp-1:7078 /home/prem/workspaceN/sparkSample/target/scala-2.12/spark-sample_2.12-1.0.jar
