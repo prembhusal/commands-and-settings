@@ -1,1 +1,13 @@
 
+Salloc command on bender:
+
+salloc -N 1 
+Srun
+salloc -N 10 --time=20:00:00
+
+1099127
+
+Singularity commands
+build commands:
+1.For sandbox
+singularity build --sandbox development/ production.simg 
