@@ -1,11 +1,11 @@
 
 Salloc command on bender:
 
-salloc -N 1 
-Srun
-salloc -N 10 --time=20:00:00
+salloc -N 1 ; reserve one node
+Srun ; run command
+salloc -N 10 --time=20:00:00 ; reserves 10 nodes for 20 hr
 
-1099127
+
 
 Singularity commands
 build commands:
