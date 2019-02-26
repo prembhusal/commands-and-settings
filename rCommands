@@ -33,3 +33,7 @@ plot(output, title="Density Method")
 # Print threshold
 print(output)
 
+
+****
+write data frame to csv file:
+write.csv(influenzaCloVJgroup,file="influenzaCloVJgroup.csv")
