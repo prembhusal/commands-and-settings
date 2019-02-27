@@ -17,3 +17,7 @@ At master :  spark://node01.cluster:7077
 for submitting job:
 go to spark/bin folder
 ./spark-submit --class "SparkPi" --master spark://lhp-1:7078 /home/prem/workspaceN/sparkSample/target/scala-2.12/spark-sample_2.12-1.0.jar
+
+
+=====with slurm on w174pxb:=========
+srun ./spark-submit --class "sct.mst.TestParMST" --master spark://node01.cluster:7077 --files /home/w174pxb/inout/input/5ku.fasta  --jars /home/w174pxb/jar/other/ujson_2.11-0.6.6.jar  /home/w174pxb/jar/fast-seq_2.11-1.0.jar /home/w174pxb/inout/input/5ku.fasta
