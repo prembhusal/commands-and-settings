@@ -21,3 +21,10 @@ go to spark/bin folder
 
 =====with slurm on w174pxb:=========
 srun ./spark-submit --class "sct.mst.TestParMST" --master spark://node01.cluster:7077 --files /home/w174pxb/inout/input/5ku.fasta  --jars /home/w174pxb/jar/other/ujson_2.11-0.6.6.jar  /home/w174pxb/jar/fast-seq_2.11-1.0.jar /home/w174pxb/inout/input/5ku.fasta
+
+Maven project:
+Maven build : mvn compile
+Maven package : mvn package
+Run :mvn exec:java -Dexec.mainClass="SparkPinkMST.Pink" 
+java -cp "/home/prem/workspace1/jars/spark-core_2.10-1.4.0.jar:target/pink-1.0.jar:." pink.Pink clust32k 400 4 3 ./sparkConfig
+./spark-submit --class "SparkPinkMST.Pink" --master spark://node01.cluster:7077 /home/prem/workspace1/orig/SparkPinkMST/target/pink-1.0.jar
