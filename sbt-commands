@@ -9,3 +9,11 @@ sbt package
 
 4.Reserve memory
 sbt -m 2048
+
+Run scala project using jar file:
+1.First download the compatible version of scala-library.jar
+2.run the command:
+java -cp path_to_scalaJar:project_jar  main_class
+java -cp /home/w174pxb/jar/other/scala-library-2.11.11.jar:/home/w174pxb/jar/fast-seq_2.11-1.0.jar sct.mst.TestParMST
+
+
