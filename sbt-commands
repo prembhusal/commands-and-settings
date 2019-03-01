@@ -1,0 +1,11 @@
+1.compile project:
+sbt compile
+
+2.Run project 
+sbt run
+
+3.Create the jar
+sbt package
+
+4.Reserve memory
+sbt -m 2048
