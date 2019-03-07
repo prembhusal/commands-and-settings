@@ -18,5 +18,11 @@ java -cp /home/w174pxb/jar/other/scala-library-2.11.11.jar:/home/w174pxb/jar/fas
 
 3.with input parameters and external jars( external jars are seperated with :)
 
+
+for localMST:
+
 java -cp /home/w174pxb/jar/other/ujson_2.11-0.6.6.jar:/home/w174pxb/jar/other/scala-library-2.11.11.jar:/home/w174pxb/jar/localmst/fast-seq_2.11-1.0.jar sct.mst.TestLocalMST /home/w174pxb//inout/input/bigJunc/bigG2k.fasta 0.15
 
+
+for VP-HC:
+java -cp /home/w174pxb/jar/other/ujson_2.11-0.6.6.jar:/home/w174pxb/jar/other/scala-library-2.11.11.jar:/home/w174pxb/jar/localmst/fast-seq_2.11-1.0.jar sct.HCTest /home/w174pxb/inout/input/bigJunc/bigG2k.fasta 0 0.14
