@@ -1,1 +1,4 @@
+Reverting the recent commit:
+git reset HEAD^
+git pull
 
