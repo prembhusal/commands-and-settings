@@ -1,0 +1,27 @@
+
+#!/bin/bash
+
+#SBATCH --job-name=spark-multi-node
+#SBATCH --exclusive
+
+#Number of seperate nodes reserved for Spark cluster
+#SBATCH --cpus-per-task=12
+#Number of excecution slots
+#SBATCH --ntasks=10
+#SBATCH --time=00:50:00
+#SBATCH --mem=248g
+#SBATCH --output sout
+
+# If Spark is not installed as a module, you will need to specifiy absolute path to
+# $SPARK_HOME/bin/spark-start where $SPARK_HOME is on shared disk or at a consistant location
+
+
+export SPARK_HOME=$HOME/mycontainer/opt/spark
+
+
+$SPARK_HOME/sbin/start-all.sh
+
+$SPARK_HOME/bin/spark-submit --class "sct.mst.TestParMST" --master spark://node01.cluster:7077 --files /home/w174pxb/inout/input/gidSeq/gidSeqD1.tsv  --jars /home/w174pxb/jar/other/ujson_2.11-0.6.6.jar  /home/w174pxb/jar/gidSeq/fast-seq_2.11-1.0.jar /home/w174pxb/inout/input/gidSeq/gidSeqD1.tsv 20 /home/w174pxb/inout/label 1 0.13
+
+
+$SPARK_HOME/sbin/stop-all.sh
