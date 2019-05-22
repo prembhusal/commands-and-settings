@@ -28,3 +28,92 @@ Maven package : mvn package
 Run :mvn exec:java -Dexec.mainClass="SparkPinkMST.Pink" 
 java -cp "/home/prem/workspace1/jars/spark-core_2.10-1.4.0.jar:target/pink-1.0.jar:." pink.Pink clust32k 400 4 3 ./sparkConfig
 ./spark-submit --class "SparkPinkMST.Pink" --master spark://node01.cluster:7077 /home/prem/workspace1/orig/SparkPinkMST/target/pink-1.0.jar
+
+
+==========================================================================
+complete spark setting and deploying program in HPC cluster using slurm script
+
+1.copy spark.simg(singularity spark image)  to head node of HPC cluster.
+
+2.make sandbox( container in directory form which host spark)
+Cmd: singularity build --sandbox Container_name/ spark.simg
+
+Configure the spark environment:
+
+3. Cd to Container_name/opt/spark/conf
+Modify the following files
+a.slaves
+	Put host name of slave node in slaves file
+Eg:
+node03.cluster
+node04.cluster
+node05.cluster
+node02.cluster
+
+
+b.spark-env.sh
+Change the master node info, no of executer as below:
+SPARK_MASTER_IP="130.108.28.116"
+SPARK_WORKER_CORES=4
+SPARK_WORKER_INSTANCES=2
+SPARK_WORKER_MEMORY=14g
+
+
+4.create following directories in head node of HPC:
+a.input => to keep input files
+b.output=> to store output files
+c.Jar => to keep jar files.
+	keep two jars in jar file
+	  1.ujson_2.11-0.6.6.jar( downloaded online) 
+	  2.fast-seq_2.11-1.0.jar ( jar file generated from our project) 
+
+5. Set the correct folder path in slurm script_file and deploy into the cluster from head node and run
+
+Cmd: sbatch script_file
+
+script_file looks like below: it reserves the 10 Nodes , starts the spark cluster, does spark submit and stop the cluster
+
+#!/bin/bash
+
+#SBATCH --job-name=spark-multi-node
+#SBATCH --exclusive
+
+#Number of seperate nodes reserved for Spark cluster
+#SBATCH --cpus-per-task=12
+#Number of excecution slots
+#SBATCH --ntasks=10
+#SBATCH -N 10
+#SBATCH --output sout
+
+# If Spark is not installed as a module, you will need to specifiy absolute path to
+# $SPARK_HOME/bin/spark-start where $SPARK_HOME is on shared disk or at a consistant location
+
+
+export SPARK_HOME=$HOME/mycontainer/opt/spark
+
+
+$SPARK_HOME/sbin/start-all.sh
+
+$SPARK_HOME/bin/spark-submit --class "sct.VDJTest" --master spark://node01.cluster:7077  --files /home/w174pxb/inout/input/gidSeq/gidSeqD2.tsv  --jars /home/w174pxb/jar/other/ujson_2.11-0.6.6.jar  /home/w174pxb/jar/gidSeq/fast-seq_2.11-1.0.jar /home/w174pxb/inout/input/gidSeq/gidSeqD2.tsv 20 /home/w174pxb/inout/label  3  0.06
+$SPARK_HOME/sbin/stop-all.sh
+
+
+
+Modifying script_file:
+
+Spark -submit includes following:
+spark-submit --class "class_Name" --master master_url  --files input_file_path  --jars jar_file_path input_file p output_file_path  method  bimodal_threshold
+
+Here
+class_Name: main class from project (eg :sct.VDJTest)  
+master_url : spark://node01.cluster:7077
+p= no of partition ( eg: 20,30)
+Method = Clustering method( 1=localMst, 2= VP-HC, 3= SCT-VPT-HC)
+bimodal_threshold = threshold from bimodal graph ( eg: 0.12)
+
+
+
+  
+
+
+
