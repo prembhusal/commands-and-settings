@@ -113,6 +113,18 @@ bimodal_threshold = threshold from bimodal graph ( eg: 0.12)
 
 
 
+
+++++++++++++++++++++++++++++++++++++++++++++
+create image from singularity recipe file:
+
+To make spark image from spark_recipe_file :
+Make the .simg file in local machine ( need sudo permission)
+1. Install singularity (link https://singularity.lbl.gov/install-linux)
+2. Cmd :sudo singularity build image_name.simg recipe_file 
+Eg: sudo singularity build spark.simg sparkRecipe 
+
+3.Transfer the .simg file to HPC cluster
+4.Follow the instruction in Readme/sparkSetup.txt to run the spark cluster.
   
 
 
